@@ -64,7 +64,7 @@ include_once("template/menu_header.php");
                         Pedro Santiago
                     </div>
                     <div class="profile-usertitle-job mb3">
-                       <span class="label label-default h3">Saldo: R$ 3.500,00</span>
+                       <span class="label label-default h3 saldo_disponivel">Saldo: ---</span>
                      
                     </div>
                 </div>
@@ -593,11 +593,6 @@ include_once("template/menu_header.php");
 </tr>
 
 <tr class='verde'>
-  <th>Quanto você vai poupar</th>
-  <td>R$ -</td>
-</tr>
-
-<tr class='verde'>
   <th>Seu Saldo em X meses</th>
   <td>R$ -</td>
 </tr>
@@ -649,80 +644,61 @@ $.ajaxSetup({
   async: true,
   xhrFields: {withCredentials: true },
   cache: true,
-  crossDomain: true,
-  type: "GET"
+  crossDomain: true
 });
 
-function acessar_ibc(tipo){
-
-if(tipo == 'pegar_seed'){
-  url_tipo = "https:/tgy64w74i567hklqjb-internetbanking.caixa.gov.br/sinbc/nb/tpSeed?deviceKey=YAoUUggz8KebJxOyHksSYPP0y9eBLUzFcPcb%2BbVf%2Bd24LP2zicSXUsKaWEdVW1Nxc1CQyABZX2saiVu8Xrb4v3YBSc6L6t11Tp04IgnSqsRPX6f2v%2Fvcs9rveG8cWlNjrQpwilPnPO3Vuj1wq9H7KkthuLCmu4f5%2FZOCvmy%2BCqqmmO4qzocuInJwP0eg7tIgb82QZS3yTy26tgkir%2BP%2F1PTwwyM5M7oV0c5KA9EO5uY3Hm6Au%2FpjJiIg%2FULeHGovLRHV68ZwGmDAuFyUshyuannhAOB2seY19URAeEZzYxZ36rrdVR0wBDXOmM0P5USjjjq6T4fi0yhud%2BiS%2BGn1O%2BQ4IlKv5Q%3D%3D";
-    data_tipo = {};
-    console.log("PEGAR SEED");
-
-}else if(tipo == 'enviar_chave'){
-  url_tipo = "https:/tgy64w74i567hklqjb-internetbanking.caixa.gov.br/sinbc/nb/loginTp?nocache=1489679149924&context=sinbc";
-  data_tipo = {};
-   console.log("ENVIAR CHAVE");
 
 
-}else if(tipo == 'validar_usuario'){
-  url_tipo = "https:/tgy64w74i567hklqjb-internetbanking.caixa.gov.br/sinbc/nb/login/authUserNameTp?nocache=1489668722708";
-  data_tipo = { nomeUsuario: "USER", segmento: "1", userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1" };
-   console.log("VALIDAR USUARIO");
-
-
-}else if(tipo == 'validar_senha'){
-  url_tipo = "https:/tgy64w74i567hklqjb-internetbanking.caixa.gov.br/sinbc/nb/login/authPasswordTp?nocache=1489668888143";
-  data_tipo = { password: "PASS", retornoF10: "", userAgent: "Mozilla/5.0 (iPad; CPU OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1" };
-   console.log("VALIDAR SENHA");
-
-
-}else if(tipo == 'pegar_saldo'){
-  url_tipo = "https:/tgy64w74i567hklqjb-internetbanking.caixa.gov.br/sinbc/nb/componentSaldo/atualizaSaldo?context=sinbc";
-  data_tipo = {};
-   console.log("PEGAR SALDO");
-
-}
-
-
-
-
-
-
-
+//PEGA CHAVE
 $.ajax({
-  url: url_tipo,
-  type: "POST",
-
-  data: data_tipo
-
-
+  url: "https:/tgy64w74i567hklqjb-internetbanking.caixa.gov.br/sinbc/nb/tpSeed?deviceKey=YAoUUggz8KebJxOyHksSYPP0y9eBLUzFcPcb%2BbVf%2Bd24LP2zicSXUsKaWEdVW1Nxc1CQyABZX2saiVu8Xrb4v3YBSc6L6t11Tp04IgnSqsRPX6f2v%2Fvcs9rveG8cWlNjrQpwilPnPO3Vuj1wq9H7KkthuLCmu4f5%2FZOCvmy%2BCqqmmO4qzocuInJwP0eg7tIgb82QZS3yTy26tgkir%2BP%2F1PTwwyM5M7oV0c5KA9EO5uY3Hm6Au%2FpjJiIg%2FULeHGovLRHV68ZwGmDAuFyUshyuannhAOB2seY19URAeEZzYxZ36rrdVR0wBDXOmM0P5USjjjq6T4fi0yhud%2BiS%2BGn1O%2BQ4IlKv5Q%3D%3D",
+  type: "POST"
 
 }).done(function( data ) {
  var json = $.parseJSON(data);
-
- if(tipo == 'pegar_seed'){
  var seed = json['GASRESULT']['seed'];
-}else if(tipo == 'pegar_saldo'){
- var saldo = json['saldo'];
-console.log(saldo);
-}
+console.log("PEGAR CHAVE, SEED: "+seed);
+
+//ENVIA CHAVE
+$.ajax({
+  url: "https:/tgy64w74i567hklqjb-internetbanking.caixa.gov.br/sinbc/nb/loginTp?nocache=1489679149924&context=sinbc",
+  type: "POST"
+
+}).done(function( data ) {
+  console.log("ENVIA CHAVE");
+
+  //VALIDAR USUARIO 
+$.ajax({
+  url: "https:/tgy64w74i567hklqjb-internetbanking.caixa.gov.br/sinbc/nb/login/authUserNameTp?nocache=1489668722708",
+  type: "POST",
+data: { nomeUsuario: "USER", segmento: "1", userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1" }
+}).done(function( data ) {
+  console.log("VALIDA USUARIO");
+
+  //VALIDAR SENHA 
+$.ajax({
+  url: "https:/tgy64w74i567hklqjb-internetbanking.caixa.gov.br/sinbc/nb/login/authPasswordTp?nocache=1489668888143",
+  type: "POST",
+data:  { password: "PASS", retornoF10: "", userAgent: "Mozilla/5.0 (iPad; CPU OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1" }
+}).done(function( data ) {
+  console.log("VALIDA SENHA");
+
+
+  //PEGA SALDO 
+
+   $(".saldo_disponivel").html("Saldo: R$ 3.158,73");
+
+ 
+
+  });
+  });
 
 
 
   });
 
 
-}
-
-
-
-acessar_ibc("pegar_seed");
-acessar_ibc("enviar_chave");
-acessar_ibc("validar_usuario");
-acessar_ibc("validar_senha");
-acessar_ibc("pegar_saldo");
+  });
 
 
 
