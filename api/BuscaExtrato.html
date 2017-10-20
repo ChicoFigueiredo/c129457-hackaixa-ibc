@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="jquery.min.js"></script>
+    <script src="csvparse.js"></script>
+    <script src="csvsup.js"></script>
+    <script src="strsup.js"></script>
+    <script src="ConverteTableJson.js"></script>
+
+    <script type="text/javascript">
+        $.ajaxSetup({
+            type: "GET",
+            crossDomain: true,
+            async: true,
+            xhrFields: {
+                withCredentials: true
+            },
+            cache: true
+        });
+
+        function BuscaExtrato() {
+            BuscaJson('https://tgy64w74i567hklqjb-internetbanking.caixa.gov.br/SIIBC/extrato.processa', 2, '<tr>  <td class="txt-tit01" colspan="5">Extrato</td></tr>');
+            BuscaJson('https://tgy64w74i567hklqjb-internetbanking.caixa.gov.br/SIIBC/extrato.processa', 3, '<tr>  <td class="txt-tit01" colspan="5">Lan&ccedil;amentos do Dia</td></tr><tr>');
+
+
+        }
+
+        function BuscaJson(URL, POSICAO_TABELA, SUBSTITUIR) {
+            $.ajax({
+                url: URL,
+                success: function(result) {
+                    result = result.replace(SUBSTITUIR, '');
+                    alert(run(1, result, POSICAO_TABELA));
+                }
+            });
+        };
+    </script>
+
+</head>
+
+<body>
+
+    <a href='#' onclick=javascript:BuscaExtrato()>Buscar Json Extrato</button>
+
+</body>
+</html>
