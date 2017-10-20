@@ -1,36 +1,11 @@
 <?php
 error_reporting(E_ALL);
 include_once("php/funcoes.php");
-require_once("php/EpiCurl.php");  //Biblioteca MultiCurl
-/*
-$mc = EpiCurl::getInstance();
-$resultado = $mc->addURL('https:/tgy64w74i567hklqjb-internetbanking.caixa.gov.br/sinbc/nb/tpSeed?deviceKey=YAoUUggz8KebJxOyHksSYPP0y9eBLUzFcPcb%2BbVf%2Bd24LP2zicSXUsKaWEdVW1Nxc1CQyABZX2saiVu8Xrb4v3YBSc6L6t11Tp04IgnSqsRPX6f2v%2Fvcs9rveG8cWlNjrQpwilPnPO3Vuj1wq9H7KkthuLCmu4f5%2FZOCvmy%2BCqqmmO4qzocuInJwP0eg7tIgb82QZS3yTy26tgkir%2BP%2F1PTwwyM5M7oV0c5KA9EO5uY3Hm6Au%2FpjJiIg%2FULeHGovLRHV68ZwGmDAuFyUshyuannhAOB2seY19URAeEZzYxZ36rrdVR0wBDXOmM0P5USjjjq6T4fi0yhud%2BiS%2BGn1O%2BQ4IlKv5Q%3D%3D'); 
-var_dump( $resultado->data);
-*/
-
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL,"https:/tgy64w74i567hklqjb-internetbanking.caixa.gov.br/sinbc/nb/tpSeed?deviceKey=YAoUUggz8KebJxOyHksSYPP0y9eBLUzFcPcb%2BbVf%2Bd24LP2zicSXUsKaWEdVW1Nxc1CQyABZX2saiVu8Xrb4v3YBSc6L6t11Tp04IgnSqsRPX6f2v%2Fvcs9rveG8cWlNjrQpwilPnPO3Vuj1wq9H7KkthuLCmu4f5%2FZOCvmy%2BCqqmmO4qzocuInJwP0eg7tIgb82QZS3yTy26tgkir%2BP%2F1PTwwyM5M7oV0c5KA9EO5uY3Hm6Au%2FpjJiIg%2FULeHGovLRHV68ZwGmDAuFyUshyuannhAOB2seY19URAeEZzYxZ36rrdVR0wBDXOmM0P5USjjjq6T4fi0yhud%2BiS%2BGn1O%2BQ4IlKv5Q%3D%3D");
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
-curl_setopt($ch, CURLOPT_POSTFIELDS,
-            "deviceKey=");
-
-$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-$resultado = curl_exec ($ch);
-curl_close ($ch);
-
-echo 'HTTP code: ' . $httpcode;
-var_dump( $resultado);
-
-
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>	
-	<title>Protótipo Hackathon</title>
+	<title>Internet Banking Caixa</title>
 <?php
 include_once("template/scripts.php");
 ?>
@@ -693,13 +668,13 @@ if(tipo == 'pegar_seed'){
 
 }else if(tipo == 'validar_usuario'){
   url_tipo = "https:/tgy64w74i567hklqjb-internetbanking.caixa.gov.br/sinbc/nb/login/authUserNameTp?nocache=1489668722708";
-  data_tipo = { nomeUsuario: "PEDROSANTIAGO21", segmento: "1", userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1" };
+  data_tipo = { nomeUsuario: "USER", segmento: "1", userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1" };
    console.log("VALIDAR USUARIO");
 
 
 }else if(tipo == 'validar_senha'){
   url_tipo = "https:/tgy64w74i567hklqjb-internetbanking.caixa.gov.br/sinbc/nb/login/authPasswordTp?nocache=1489668888143";
-  data_tipo = { password: "pedro21", retornoF10: "", userAgent: "Mozilla/5.0 (iPad; CPU OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1" };
+  data_tipo = { password: "PASS", retornoF10: "", userAgent: "Mozilla/5.0 (iPad; CPU OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1" };
    console.log("VALIDAR SENHA");
 
 
