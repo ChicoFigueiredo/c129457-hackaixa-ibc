@@ -2,19 +2,19 @@
 
 if($_SERVER['HTTP_HOST'] == 'simon.caixa'){
 //SERVIDOR DE DESENVOLVIMENTO
-    $gaSql['user']       = "s501901";
-    $gaSql['password']   = "s5019@gemon";
-    $gaSql['db']         = "DB7642_SIMON";
-    $gaSql['server']     = "DF7436SR687.corp.caixa.gov.br";
-    $prefixo_tabelas = "[DB7642_SIMON].[dbo].";
+    $gaSql['user']       = "";
+    $gaSql['password']   = "";
+    $gaSql['db']         = "";
+    $gaSql['server']     = "";
+    $prefixo_tabelas = "[].";
 
 }else{
 //SERVIDOR DE PRODUÇÃO
-    $gaSql['user']       = "s501901";
-    $gaSql['password']   = "s5019@gemon";
-    $gaSql['db']         = "DB7642_SIMON";
-    $gaSql['server']     = "DF7436SR687.corp.caixa.gov.br";
-    $prefixo_tabelas = "[DB7642_SIMON].[dbo].";
+    $gaSql['user']       = "";
+    $gaSql['password']   = "";
+    $gaSql['db']         = "";
+    $gaSql['server']     = "";
+    $prefixo_tabelas = "[].[].";
     }
 
      /*
